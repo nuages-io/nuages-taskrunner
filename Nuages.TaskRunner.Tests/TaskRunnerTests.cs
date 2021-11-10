@@ -90,7 +90,7 @@ namespace Nuages.TaskRunner.Tests
     
             var runner = new TaskRunnerService(serviceprovider.Object, new List<ITaskAuthorizationService>());
     
-            await Assert.ThrowsAsync<Exception>(async () =>
+            await Assert.ThrowsAsync<TypeLoadException>(async () =>
             {
                 await runner.ExecuteAsync(new RunnableTaskDefinition
                 {

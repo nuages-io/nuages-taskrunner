@@ -58,7 +58,7 @@ namespace Nuages.TaskRunner
             var type = Type.GetType(taskDef.AssemblyQualifiedName);
             if (type == null)
             {
-                throw new Exception(
+                throw new TypeLoadException(
                     $"Can't process task, type not found : {taskDef.AssemblyQualifiedName}");
             }
 
