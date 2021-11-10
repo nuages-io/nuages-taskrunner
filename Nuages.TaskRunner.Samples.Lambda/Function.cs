@@ -67,6 +67,7 @@ public class Function
 
         LambdaLogger.Log("MESSAGE: " + message.Body);
         
+        // ReSharper disable once AssignNullToNotNullAttribute
         await taskRunner.ExecuteAsync(t);
     }
 }

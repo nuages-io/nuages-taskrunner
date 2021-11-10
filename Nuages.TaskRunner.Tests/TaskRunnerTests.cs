@@ -50,7 +50,7 @@ namespace Nuages.TaskRunner.Tests
                 
             var serviceprovider = new Mock<IServiceProvider>();
 
-            var runner = new TaskRunnerService(serviceprovider.Object, new List<ITaskAuthorizationService>()
+            var runner = new TaskRunnerService(serviceprovider.Object, new List<ITaskAuthorizationService>
             {
                 authorizer.Object
             });
@@ -70,7 +70,7 @@ namespace Nuages.TaskRunner.Tests
                 
             var serviceprovider = new Mock<IServiceProvider>();
 
-            var runner = new TaskRunnerService(serviceprovider.Object, new List<ITaskAuthorizationService>()
+            var runner = new TaskRunnerService(serviceprovider.Object, new List<ITaskAuthorizationService>
             {
                 authorizer.Object
             });
