@@ -55,12 +55,7 @@ namespace Nuages.TaskRunner
         
         public async Task<IRunnableTask> ExecuteAsync(RunnableTaskDefinition taskDef)
         {
-            var type = Type.GetType(taskDef.AssemblyQualifiedName);
-            if (type == null)
-            {
-                throw new TypeLoadException(
-                    $"Can't process task, type not found : {taskDef.AssemblyQualifiedName}");
-            }
+            var type = GetRunnableType(taskDef);
 
             if (!await IsAuthorizedToRunAsync(taskDef))
                 throw new NotAuthorizedException("NotAuthorized");
@@ -70,6 +65,18 @@ namespace Nuages.TaskRunner
             await job.ExecuteAsync(JsonSerializer.Serialize(taskDef.Payload));
             
             return job;
+        }
+
+        private static Type? GetRunnableType(RunnableTaskDefinition taskDef)
+        {
+            var type = Type.GetType(taskDef.AssemblyQualifiedName);
+            if (type == null)
+            {
+                throw new TypeLoadException(
+                    $"Can't process task, type not found : {taskDef.AssemblyQualifiedName}");
+            }
+
+            return type;
         }
     }
 }
