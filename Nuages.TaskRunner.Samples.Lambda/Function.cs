@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -61,7 +62,9 @@ public class Function
     // ReSharper disable once UnusedParameter.Local
     private async Task ProcessMessageAsync(SQSEvent.SQSMessage message, ILambdaContext context)
     {
-        var taskRunner = new TaskRunnerService(_serviceProvider, new List<ITaskAuthorizationService>());
+        var logger = _serviceProvider.GetRequiredService<ILogger<TaskRunnerService>>();
+        
+        var taskRunner = new TaskRunnerService(_serviceProvider, logger, new List<ITaskAuthorizationService>());
 
         var t = JsonSerializer.Deserialize<RunnableTaskDefinition>(message.Body);
 

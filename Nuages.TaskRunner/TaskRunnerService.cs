@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace Nuages.TaskRunner
 {
@@ -11,11 +12,13 @@ namespace Nuages.TaskRunner
     // ReSharper disable once ClassWithVirtualMembersNeverInherited.Global
     public class TaskRunnerService : ITaskRunnerService
     {
+        private readonly ILogger<TaskRunnerService> _logger;
         private readonly IServiceProvider _serviceProvider;
         private readonly IEnumerable<ITaskAuthorizationService> _authorizers;
 
-        public TaskRunnerService(IServiceProvider serviceProvider, IEnumerable<ITaskAuthorizationService> authorizers)
+        public TaskRunnerService( IServiceProvider serviceProvider, ILogger<TaskRunnerService> logger, IEnumerable<ITaskAuthorizationService> authorizers)
         {
+            _logger = logger;
             _serviceProvider = serviceProvider;
             _authorizers = authorizers;
         }
@@ -55,19 +58,27 @@ namespace Nuages.TaskRunner
         
         public async Task<IRunnableTask> ExecuteAsync(RunnableTaskDefinition taskDef)
         {
+            var taskId = Guid.NewGuid();
+            
+            _logger.LogInformation("Running task {Id} with type {AssemblyQualifiedName} using payload {Payload}", taskId, taskDef.AssemblyQualifiedName, taskDef.Payload);
             var type = GetRunnableType(taskDef);
 
             if (!await IsAuthorizedToRunAsync(taskDef))
+            {
+                _logger.LogWarning("User {UserId} is not authorized to run task {AssemblyQualifiedName}", taskDef.UserId, taskDef.AssemblyQualifiedName);
                 throw new NotAuthorizedException("NotAuthorized");
+            }
             
             var job = (IRunnableTask) ActivatorUtilities.CreateInstance(_serviceProvider, type);
 
             await job.ExecuteAsync(JsonSerializer.Serialize(taskDef.Payload));
             
+            _logger.LogInformation("Task {Id} was executed with success", taskId);
+            
             return job;
         }
 
-        private static Type? GetRunnableType(RunnableTaskDefinition taskDef)
+        private static Type GetRunnableType(RunnableTaskDefinition taskDef)
         {
             var type = Type.GetType(taskDef.AssemblyQualifiedName);
             if (type == null)

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Logging;
 using Moq;
 using Nuages.TaskRunner.Tasks;
 using Xunit;
@@ -20,7 +21,9 @@ namespace Nuages.TaskRunner.Tests
 
             var serviceprovider = new Mock<IServiceProvider>();
 
-            var runner = new TaskRunnerService(serviceprovider.Object, new List<ITaskAuthorizationService>());
+            var logger = new Mock<ILogger<TaskRunnerService>>();
+            
+            var runner = new TaskRunnerService(serviceprovider.Object, logger.Object, new List<ITaskAuthorizationService>());
 
             await runner.ExecuteAsync(taskDef);
 
@@ -32,8 +35,9 @@ namespace Nuages.TaskRunner.Tests
             var taskData = new OutputToConsoleTaskData("message");
         
             var serviceprovider = new Mock<IServiceProvider>();
-
-            var runner = new TaskRunnerService(serviceprovider.Object, new List<ITaskAuthorizationService>());
+            var logger = new Mock<ILogger<TaskRunnerService>>();
+            
+            var runner = new TaskRunnerService(serviceprovider.Object, logger.Object, new List<ITaskAuthorizationService>());
 
             await runner.ExecuteAsync<OutputToConsoleTask, OutputToConsoleTaskData>(taskData);
 
@@ -49,8 +53,9 @@ namespace Nuages.TaskRunner.Tests
             authorizer.Setup(a => a.IsAuthorizedToRunAsync(taskDef)).ReturnsAsync(true);
                 
             var serviceprovider = new Mock<IServiceProvider>();
-
-            var runner = new TaskRunnerService(serviceprovider.Object, new List<ITaskAuthorizationService>
+            var logger = new Mock<ILogger<TaskRunnerService>>();
+            
+            var runner = new TaskRunnerService(serviceprovider.Object, logger.Object, new List<ITaskAuthorizationService>
             {
                 authorizer.Object
             });
@@ -69,8 +74,9 @@ namespace Nuages.TaskRunner.Tests
             authorizer.Setup(a => a.IsAuthorizedToRunAsync(taskDef)).ReturnsAsync(false);
                 
             var serviceprovider = new Mock<IServiceProvider>();
-
-            var runner = new TaskRunnerService(serviceprovider.Object, new List<ITaskAuthorizationService>
+            var logger = new Mock<ILogger<TaskRunnerService>>();
+            
+            var runner = new TaskRunnerService(serviceprovider.Object, logger.Object, new List<ITaskAuthorizationService>
             {
                 authorizer.Object
             });
@@ -87,8 +93,9 @@ namespace Nuages.TaskRunner.Tests
             const string name = "BadClassName";
         
             var serviceprovider = new Mock<IServiceProvider>();
-    
-            var runner = new TaskRunnerService(serviceprovider.Object, new List<ITaskAuthorizationService>());
+            var logger = new Mock<ILogger<TaskRunnerService>>();
+            
+            var runner = new TaskRunnerService(serviceprovider.Object, logger.Object, new List<ITaskAuthorizationService>());
     
             await Assert.ThrowsAsync<TypeLoadException>(async () =>
             {
