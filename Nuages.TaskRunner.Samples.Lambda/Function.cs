@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Amazon.Lambda.Core;
@@ -13,6 +14,7 @@ namespace Nuages.TaskRunner.Samples.Lambda
 {
     
 // ReSharper disable once UnusedType.Global
+[ExcludeFromCodeCoverage]
 public class Function
 {
     private ServiceProvider _serviceProvider;

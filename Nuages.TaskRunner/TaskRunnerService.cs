@@ -20,11 +20,11 @@ namespace Nuages.TaskRunner
             _authorizers = authorizers;
         }
 
-        public async Task<T> ExecuteAsync<T>(RunnableTaskDefinition taskDef) where T : IRunnableTask
-        {
-            return (T) await ExecuteAsync(taskDef);
-        }
-        
+        // public async Task<T> ExecuteAsync<T>(RunnableTaskDefinition taskDef) where T : IRunnableTask
+        // {
+        //     return (T) await ExecuteAsync(taskDef);
+        // }
+        //
         public async Task<T> ExecuteAsync<T,TD>(TD data, string? userId = null) where T : IRunnableTask
         {
             var taskDef = RunnableTaskDefinitionCreator<T>.Create(data, userId);
@@ -32,12 +32,12 @@ namespace Nuages.TaskRunner
             return (T) await ExecuteAsync(taskDef);
         }
         
-        public async Task<T> ExecuteAsync<T>(object data, string? userId = null) where T : IRunnableTask
-        {
-            var taskDef = RunnableTaskDefinitionCreator<T>.Create(data, userId);
-            
-            return (T) await ExecuteAsync(taskDef);
-        }
+        // public async Task<T> ExecuteAsync<T>(object data, string? userId = null) where T : IRunnableTask
+        // {
+        //     var taskDef = RunnableTaskDefinitionCreator<T>.Create(data, userId);
+        //     
+        //     return (T) await ExecuteAsync(taskDef);
+        // }
 
         protected virtual async Task<bool> IsAuthorizedToRunAsync(RunnableTaskDefinition taskDef)
         {
@@ -63,7 +63,7 @@ namespace Nuages.TaskRunner
             }
 
             if (!await IsAuthorizedToRunAsync(taskDef))
-                throw new Exception("NotAuthorized");
+                throw new NotAuthorizedException("NotAuthorized");
             
             var job = (IRunnableTask) ActivatorUtilities.CreateInstance(_serviceProvider, type);
 

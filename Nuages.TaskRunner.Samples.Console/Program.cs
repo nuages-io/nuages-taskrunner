@@ -1,8 +1,10 @@
-﻿using System.Threading.Tasks;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Nuages.TaskRunner.Samples.Console
 {
+    [ExcludeFromCodeCoverage]
     // ReSharper disable once ClassNeverInstantiated.Global
     internal class Program
     {
@@ -46,7 +48,7 @@ namespace Nuages.TaskRunner.Samples.Console
         }
     }
     
-    
+    [ExcludeFromCodeCoverage]
     public class OutputToConsoleTask : RunnableTask<OutputToConsoleTaskData>  
     {  
         public override async Task ExecuteAsync(OutputToConsoleTaskData data)  
@@ -55,6 +57,7 @@ namespace Nuages.TaskRunner.Samples.Console
         }
     }  
 
+    [ExcludeFromCodeCoverage]
     public class OutputToConsoleTaskData  
     {  
         // ReSharper disable once UnusedMember.Global
