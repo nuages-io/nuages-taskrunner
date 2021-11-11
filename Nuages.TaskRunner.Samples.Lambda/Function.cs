@@ -57,6 +57,12 @@ public class Function
     private static void ConfigureServices(ServiceCollection serviceCollection)
     {
         //Configure additional Services here
+        var loggerOptions = new LambdaLoggerOptions
+        {
+            
+        };
+        
+        serviceCollection.AddLogging(logging => logging.AddLambdaLogger(loggerOptions));
     }
 
     // ReSharper disable once UnusedParameter.Local
