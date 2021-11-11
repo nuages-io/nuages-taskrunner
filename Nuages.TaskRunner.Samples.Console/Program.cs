@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Nuages.TaskRunner.Samples.Console
+    // ReSharper disable once ArrangeNamespaceBody
 {
     [ExcludeFromCodeCoverage]
     // ReSharper disable once ClassNeverInstantiated.Global

@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using Moq;
 using Nuages.TaskRunner.Tasks;
 using Xunit;
+// ReSharper disable ArrangeNamespaceBody
 
 namespace Nuages.TaskRunner.Tests
 {
