@@ -1,9 +1,6 @@
-using System.Threading.Tasks;
+namespace Nuages.TaskRunner;
 
-namespace Nuages.TaskRunner
+public interface ITaskAuthorizationService
 {
-    public interface ITaskAuthorizationService
-    {
-        Task<bool> IsAuthorizedToRunAsync(RunnableTaskDefinition taskDef);
-    }
+    Task<bool> IsAuthorizedToRunAsync(RunnableTaskDefinition taskDef);
 }

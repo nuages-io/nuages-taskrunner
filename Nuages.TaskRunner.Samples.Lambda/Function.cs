@@ -16,6 +16,7 @@ namespace Nuages.TaskRunner.Samples.Lambda
     
 // ReSharper disable once UnusedType.Global
 [ExcludeFromCodeCoverage]
+// ReSharper disable once ClassNeverInstantiated.Global
 public class Function
 {
     private ServiceProvider _serviceProvider;
@@ -54,13 +55,10 @@ public class Function
     }
 
     // ReSharper disable once UnusedParameter.Local
-    private static void ConfigureServices(ServiceCollection serviceCollection)
+    private static void ConfigureServices(IServiceCollection serviceCollection)
     {
         //Configure additional Services here
-        var loggerOptions = new LambdaLoggerOptions
-        {
-            
-        };
+        var loggerOptions = new LambdaLoggerOptions();
         
         serviceCollection.AddLogging(logging => logging.AddLambdaLogger(loggerOptions));
     }

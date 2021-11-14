@@ -1,12 +1,9 @@
-using System;
+namespace Nuages.TaskRunner;
 
-namespace Nuages.TaskRunner
+public class NotAuthorizedException : Exception
 {
-    public class NotAuthorizedException : Exception
+    public NotAuthorizedException(string? message) : base(message)
     {
-        public NotAuthorizedException(string? message) : base(message)
-        {
             
-        }
     }
 }

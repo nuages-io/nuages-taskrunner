@@ -1,9 +1,6 @@
-using System.Threading.Tasks;
+namespace Nuages.TaskRunner;
 
-namespace Nuages.TaskRunner
+public interface IRunnableTask
 {
-    public interface IRunnableTask
-    {
-        Task ExecuteAsync(string? payload);
-    }
+    Task ExecuteAsync(string? payload);
 }
