@@ -3,14 +3,31 @@
     <PropertyGroup>
         <Nullable>enable</Nullable>
         <LangVersion>10</LangVersion>
-        <PackageReadmeFile>README.md</PackageReadmeFile>
         <TargetFrameworks>net6.0;netcoreapp3.1</TargetFrameworks>
         <ImplicitUsings>enable</ImplicitUsings>
+
+        <Title>Nuages.TaskRunner</Title>
+        <Authors>Nuages.io</Authors>
+        <Description>Nuages.TaskRunner is a .NET Core C# library that provides functionalities to execute code based on a task definition.</Description>
+        <PackageLicenseFile>LICENSE</PackageLicenseFile>
+        <PackageIcon>nuages.png</PackageIcon>
+        <PackageReadmeFile>README.md</PackageReadmeFile>
+        <RepositoryUrl>https://github.com/nuages-io/nuages-taskrunner</RepositoryUrl>
+        <RepositoryType>GitHub</RepositoryType>
     </PropertyGroup>
 
 
     <ItemGroup>
         <None Include="README.md" Pack="true" PackagePath="\" />
+
+        <None Include="../LICENSE">
+            <Pack>true</Pack>
+            <PackagePath>/</PackagePath>
+        </None>
+        <None Include="../nuages.png">
+            <Pack>true</Pack>
+            <PackagePath>/</PackagePath>
+        </None>
     </ItemGroup>
     
     <ItemGroup>
