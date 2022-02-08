@@ -1,7 +1,5 @@
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.Json;
-using System.Threading.Tasks;
 using Amazon.Lambda.Core;
 using Amazon.Lambda.SQSEvents;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,9 +9,8 @@ using Microsoft.Extensions.Logging;
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
 [assembly: LambdaSerializer(typeof(Amazon.Lambda.Serialization.SystemTextJson.DefaultLambdaJsonSerializer))]
 
-namespace Nuages.TaskRunner.Samples.Lambda
-{
-    
+namespace Nuages.TaskRunner.Samples.Lambda;
+
 // ReSharper disable once UnusedType.Global
 [ExcludeFromCodeCoverage]
 // ReSharper disable once ClassNeverInstantiated.Global
@@ -77,5 +74,4 @@ public class Function
         // ReSharper disable once AssignNullToNotNullAttribute
         await taskRunner.ExecuteAsync(t);
     }
-}
 }
