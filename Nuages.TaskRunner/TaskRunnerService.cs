@@ -18,25 +18,13 @@ public class TaskRunnerService : ITaskRunnerService
         _serviceProvider = serviceProvider;
         _authorizers = authorizers;
     }
-
-    // public async Task<T> ExecuteAsync<T>(RunnableTaskDefinition taskDef) where T : IRunnableTask
-    // {
-    //     return (T) await ExecuteAsync(taskDef);
-    // }
-    //
+    
     public async Task<T> ExecuteAsync<T,TD>(TD data, string? userId = null) where T : IRunnableTask
     {
         var taskDef = RunnableTaskDefinitionCreator<T>.Create(data, userId);
             
         return (T) await ExecuteAsync(taskDef);
     }
-        
-    // public async Task<T> ExecuteAsync<T>(object data, string? userId = null) where T : IRunnableTask
-    // {
-    //     var taskDef = RunnableTaskDefinitionCreator<T>.Create(data, userId);
-    //     
-    //     return (T) await ExecuteAsync(taskDef);
-    // }
 
     protected virtual async Task<bool> IsAuthorizedToRunAsync(RunnableTaskDefinition taskDef)
     {

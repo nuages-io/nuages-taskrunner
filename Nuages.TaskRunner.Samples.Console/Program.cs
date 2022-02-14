@@ -33,7 +33,7 @@ namespace Nuages.TaskRunner.Samples.Console
             var data = new OutputToConsoleTaskData( "Method 1 : Your name is : " + message);
             await taskRunner.ExecuteAsync<OutputToConsoleTask, OutputToConsoleTaskData>(data);
             
-            //Execute the task : Method 2 (Data Typed)
+            //Execute the task : Method 2 (Untyped)
             var taskDef =  RunnableTaskDefinitionCreator<OutputToConsoleTask>.Create(new { Message = "Method 2 : Your name is : " + message });
             await taskRunner.ExecuteAsync(taskDef);
             
