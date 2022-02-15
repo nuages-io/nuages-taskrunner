@@ -1,4 +1,4 @@
-# Nuages.TaskRunner
+# Nuages.TaskRunner <img alt="Nuget" src="https://img.shields.io/nuget/v/Nuages.TaskRunner?style=flat-square"> ![example workflow](https://github.com/nuages-io/nuages-taskrunner/actions/workflows/nuget.yml/badge.svg)
 
 ## What is Nuages.TaskRunner?
 
